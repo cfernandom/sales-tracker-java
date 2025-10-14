@@ -1,4 +1,4 @@
-package org.uptc.sales_tracker.entity.conf;
+package org.uptc.sales_tracker.conf;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
