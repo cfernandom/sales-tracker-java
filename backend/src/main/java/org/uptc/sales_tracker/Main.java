@@ -2,6 +2,7 @@ package org.uptc.sales_tracker;
 
 import jakarta.persistence.EntityManager;
 import org.uptc.sales_tracker.conf.PersistenceUtil;
+import org.uptc.sales_tracker.model.Invoice;
 import org.uptc.sales_tracker.model.Person;
 import org.uptc.sales_tracker.model.Product;
 
@@ -14,7 +15,44 @@ public class Main {
         insertPerson(entityManager);
         insertProduct(entityManager);
         associatePersonWithProducts(entityManager);
+        createInvoice(entityManager);
         entityManager.close();
+    }
+
+    public static void createInvoice(EntityManager entityManager) {
+        entityManager.getTransaction().begin();
+        Person seller1 = entityManager.find(Person.class, 1L);
+        Person client1 = entityManager.find(Person.class, 2L);
+        Person seller2 = entityManager.find(Person.class, 3L);
+        Person client2 = entityManager.find(Person.class, 4L);
+        Person seller3 = entityManager.find(Person.class, 5L);
+        Person client3 = entityManager.find(Person.class, 1L);
+        Invoice invoice1 = new Invoice();
+        invoice1.setDate(new Date());
+        invoice1.setSeller(seller1);
+        invoice1.setClient(client1);
+        entityManager.persist(invoice1);
+        Invoice invoice2 = new Invoice();
+        invoice2.setDate(new Date());
+        invoice2.setSeller(seller2);
+        invoice2.setClient(client2);
+        entityManager.persist(invoice2);
+        Invoice invoice3 = new Invoice();
+        invoice3.setDate(new Date());
+        invoice3.setSeller(seller3);
+        invoice3.setClient(client3);
+        entityManager.persist(invoice3);
+        Invoice invoice4 = new Invoice();
+        invoice4.setDate(new Date());
+        invoice4.setSeller(seller1);
+        invoice4.setClient(client2);
+        entityManager.persist(invoice4);
+        Invoice invoice5 = new Invoice();
+        invoice5.setDate(new Date());
+        invoice5.setSeller(seller2);
+        invoice5.setClient(client3);
+        entityManager.persist(invoice5);
+        entityManager.getTransaction().commit();
     }
 
     public static void associatePersonWithProducts(EntityManager entityManager) {
