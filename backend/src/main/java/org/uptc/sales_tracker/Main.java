@@ -3,6 +3,7 @@ package org.uptc.sales_tracker;
 import jakarta.persistence.EntityManager;
 import org.uptc.sales_tracker.conf.PersistenceUtil;
 import org.uptc.sales_tracker.model.Person;
+import org.uptc.sales_tracker.model.Product;
 
 import java.util.Date;
 
@@ -10,7 +11,33 @@ public class Main {
     public static void main(String[] args) {
         EntityManager entityManager = PersistenceUtil.getMysqlEntityManager();
         insertPerson(entityManager);
+        insertProduct(entityManager);
         entityManager.close();
+    }
+
+    public static void insertProduct(EntityManager entityManager) {
+        Product product1 = new Product();
+        Product product2 = new Product();
+        Product product3 = new Product();
+        Product product4 = new Product();
+        Product product5 = new Product();
+        entityManager.getTransaction().begin();
+        product1.setName("Laptop");
+        product1.setUnitPrice(150.0);
+        entityManager.persist(product1);
+        product2.setName("Smartphone");
+        product2.setUnitPrice(800.0);
+        entityManager.persist(product2);
+        product3.setName("Tablet");
+        product3.setUnitPrice(400.0);
+        entityManager.persist(product3);
+        product4.setName("Monitor");
+        product4.setUnitPrice(300.0);
+        entityManager.persist(product4);
+        product5.setName("Keyboard");
+        product5.setUnitPrice(50.0);
+        entityManager.persist(product5);
+        entityManager.getTransaction().commit();
     }
 
     public static void insertPerson(EntityManager entityManager) {
