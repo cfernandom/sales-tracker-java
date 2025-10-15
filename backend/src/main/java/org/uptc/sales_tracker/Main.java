@@ -14,6 +14,19 @@ public class Main {
     public static void main(String[] args) {
         loadData();
         getClientInvoices(1L);
+        getProviderProducts(1L);
+    }
+
+    public static void getProviderProducts(Long providerId) {
+        EntityManager entityManager = PersistenceUtil.getMysqlEntityManager();
+        Person provider = entityManager.find(Person.class, providerId);
+        System.out.println("Products provided by: " + provider.getName() + " " + provider.getLastName());
+        List<Product> products = provider.getProducts();
+        for (Product product : products) {
+            System.out.println("Product ID: " + product.getId() + ", Name: " + product.getName() +
+                    ", Unit Price: " + product.getUnitPrice());
+        }
+        entityManager.close();
     }
 
     public static void getClientInvoices(Long clientId) {
