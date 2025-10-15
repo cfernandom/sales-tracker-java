@@ -3,6 +3,7 @@ package org.uptc.sales_tracker.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "PERSONAS")
@@ -26,6 +27,12 @@ public class Person {
 
     @Column(name = "NUMERO_DOCUMENTO")
     private String documentNumber;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "PROVEEDOR_PRODUCTO",
+            joinColumns = @JoinColumn(name = "PROVEEDOR_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCTO_ID"))
+    private List<Product> products;
 
     public Person() {
     }
@@ -76,6 +83,14 @@ public class Person {
 
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override

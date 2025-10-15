@@ -6,13 +6,35 @@ import org.uptc.sales_tracker.model.Person;
 import org.uptc.sales_tracker.model.Product;
 
 import java.util.Date;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         EntityManager entityManager = PersistenceUtil.getMysqlEntityManager();
         insertPerson(entityManager);
         insertProduct(entityManager);
+        associatePersonWithProducts(entityManager);
         entityManager.close();
+    }
+
+    public static void associatePersonWithProducts(EntityManager entityManager) {
+        entityManager.getTransaction().begin();
+        Person person1 = entityManager.find(Person.class, 1L);
+        Person person2 = entityManager.find(Person.class, 2L);
+        Person person3 = entityManager.find(Person.class, 3L);
+        Person person4 = entityManager.find(Person.class, 4L);
+        Person person5 = entityManager.find(Person.class, 5L);
+        Product product1 = entityManager.find(Product.class, 1L);
+        Product product2 = entityManager.find(Product.class, 2L);
+        Product product3 = entityManager.find(Product.class, 3L);
+        Product product4 = entityManager.find(Product.class, 4L);
+        Product product5 = entityManager.find(Product.class, 5L);
+        person1.setProducts(List.of(product1, product2));
+        person2.setProducts(List.of(product2, product3));
+        person3.setProducts(List.of(product3, product4));
+        person4.setProducts(List.of(product4, product5));
+        person5.setProducts(List.of(product1, product5));
+        entityManager.getTransaction().commit();
     }
 
     public static void insertProduct(EntityManager entityManager) {
