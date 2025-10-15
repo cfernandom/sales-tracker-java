@@ -34,6 +34,12 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "PRODUCTO_ID"))
     private List<Product> products;
 
+    @OneToMany(mappedBy = "seller")
+    private List<Invoice> sales;
+
+    @OneToMany(mappedBy = "client")
+    private List<Invoice> purchases;
+
     public Person() {
     }
 
@@ -91,6 +97,22 @@ public class Person {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public List<Invoice> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Invoice> sales) {
+        this.sales = sales;
+    }
+
+    public List<Invoice> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Invoice> purchases) {
+        this.purchases = purchases;
     }
 
     @Override

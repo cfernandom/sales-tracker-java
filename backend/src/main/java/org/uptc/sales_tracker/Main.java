@@ -13,6 +13,19 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         loadData();
+        getClientInvoices(1L);
+    }
+
+    public static void getClientInvoices(Long clientId) {
+        EntityManager entityManager = PersistenceUtil.getMysqlEntityManager();
+        Person client = entityManager.find(Person.class, clientId);
+        System.out.println("Invoices for client: " + client.getName() + " " + client.getLastName());
+        List<Invoice> invoices = client.getPurchases();
+        for (Invoice invoice : invoices) {
+            System.out.println("Invoice ID: " + invoice.getId() + ", Date: " + invoice.getDate() +
+                    ", Seller: " + invoice.getSeller().getName() + " " + invoice.getSeller().getLastName());
+        }
+        entityManager.close();
     }
 
     public static void loadData(){
