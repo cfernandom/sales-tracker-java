@@ -5,7 +5,7 @@
              version="3.0">
     <persistence-unit name="salesTracker">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <class>org.uptc.sales_tracker.model.Person</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:21911/sales_tracker_db"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
