@@ -16,6 +16,33 @@ public class Main {
         getClientInvoices(1L);
         getProviderProducts(1L);
         getSellerTotalRevenue(1L);
+        printInvoice(1L);
+    }
+
+    public static void printInvoice(Long invoiceId) {
+        EntityManager entityManager = PersistenceUtil.getMysqlEntityManager();
+        Invoice invoice = entityManager.find(Invoice.class, invoiceId);
+        List<Detail> details = invoice.getDetails();
+        System.out.println("=====================================");
+        System.out.println("Factura " + invoice.getId() + "\n");
+        System.out.println("Cliente " + invoice.getClient().getName() + " " + invoice.getClient().getLastName() + "\tFecha de compra:" + invoice.getDate());
+        System.out.println("Direccion cliente: Calle falsa 123\n");
+        String format = "%-10s %-30s %-10s %-10s %-10s%n";
+        System.out.format(format, "Id Item", "Nombre Item", "Cantidad", "Valor Unit", "Valor Total");
+        double total = 0.0;
+        for (Detail detail : details) {
+            Long itemId = detail.getProduct().getId();
+            String itemName = detail.getProduct().getName();
+            int quantity = detail.getQuantity();
+            double unitPrice = detail.getProduct().getUnitPrice();
+            double totalPrice = detail.getSalePrice();
+            total += totalPrice;
+            System.out.format(format, itemId, itemName, quantity, unitPrice, totalPrice);
+        }
+        System.out.format(format, " ", "", "", "TOTAL:", total);
+        System.out.println("Atendido por: " + invoice.getSeller().getName() + " " + invoice.getSeller().getLastName());
+        System.out.println("=====================================");
+        entityManager.close();
     }
 
     public static void getSellerTotalRevenue(Long sellerId) {

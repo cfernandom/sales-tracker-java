@@ -15,7 +15,7 @@
             <property name="hibernate.connection.username" value="sales_tracker_user"/>
             <property name="hibernate.connection.password" value="sales_tracker_pass"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
         </properties>
     </persistence-unit>
 </persistence>
