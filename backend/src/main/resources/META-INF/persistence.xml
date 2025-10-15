@@ -8,6 +8,7 @@
         <class>org.uptc.sales_tracker.model.Person</class>
         <class>org.uptc.sales_tracker.model.Product</class>
         <class>org.uptc.sales_tracker.model.Invoice</class>
+        <class>org.uptc.sales_tracker.model.Detail</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:21911/sales_tracker_db"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>

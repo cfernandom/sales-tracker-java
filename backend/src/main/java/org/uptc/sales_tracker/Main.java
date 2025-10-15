@@ -2,6 +2,7 @@ package org.uptc.sales_tracker;
 
 import jakarta.persistence.EntityManager;
 import org.uptc.sales_tracker.conf.PersistenceUtil;
+import org.uptc.sales_tracker.model.Detail;
 import org.uptc.sales_tracker.model.Invoice;
 import org.uptc.sales_tracker.model.Person;
 import org.uptc.sales_tracker.model.Product;
@@ -16,7 +17,51 @@ public class Main {
         insertProduct(entityManager);
         associatePersonWithProducts(entityManager);
         createInvoice(entityManager);
+        createDetail(entityManager);
         entityManager.close();
+    }
+
+    public static void createDetail(EntityManager entityManager) {
+        entityManager.getTransaction().begin();
+        Invoice invoice1 = entityManager.find(Invoice.class, 1L);
+        Invoice invoice2 = entityManager.find(Invoice.class, 2L);
+        Invoice invoice3 = entityManager.find(Invoice.class, 3L);
+        Product product1 = entityManager.find(Product.class, 1L);
+        Product product2 = entityManager.find(Product.class, 2L);
+        Product product3 = entityManager.find(Product.class, 3L);
+        Product product4 = entityManager.find(Product.class, 4L);
+        Product product5 = entityManager.find(Product.class, 5L);
+        Detail detail1 = new Detail();
+        detail1.setInvoice(invoice1);
+        detail1.setProduct(product1);
+        detail1.setQuantity(2);
+        detail1.setSalePrice(product1.getUnitPrice() * detail1.getQuantity());
+        entityManager.persist(detail1);
+        Detail detail2 = new Detail();
+        detail2.setInvoice(invoice1);
+        detail2.setProduct(product2);
+        detail2.setQuantity(1);
+        detail2.setSalePrice(product2.getUnitPrice() * detail2.getQuantity());
+        entityManager.persist(detail2);
+        Detail detail3 = new Detail();
+        detail3.setInvoice(invoice2);
+        detail3.setProduct(product3);
+        detail3.setQuantity(3);
+        detail3.setSalePrice(product3.getUnitPrice() * detail3.getQuantity());
+        entityManager.persist(detail3);
+        Detail detail4 = new Detail();
+        detail4.setInvoice(invoice2);
+        detail4.setProduct(product4);
+        detail4.setQuantity(1);
+        detail4.setSalePrice(product4.getUnitPrice() * detail4.getQuantity());
+        entityManager.persist(detail4);
+        Detail detail5 = new Detail();
+        detail5.setInvoice(invoice3);
+        detail5.setProduct(product5);
+        detail5.setQuantity(5);
+        detail5.setSalePrice(product5.getUnitPrice() * detail5.getQuantity());
+        entityManager.persist(detail5);
+        entityManager.getTransaction().commit();
     }
 
     public static void createInvoice(EntityManager entityManager) {
@@ -83,16 +128,16 @@ public class Main {
         Product product5 = new Product();
         entityManager.getTransaction().begin();
         product1.setName("Laptop");
-        product1.setUnitPrice(150.0);
+        product1.setUnitPrice(15.0);
         entityManager.persist(product1);
         product2.setName("Smartphone");
-        product2.setUnitPrice(800.0);
+        product2.setUnitPrice(80.0);
         entityManager.persist(product2);
         product3.setName("Tablet");
-        product3.setUnitPrice(400.0);
+        product3.setUnitPrice(40.0);
         entityManager.persist(product3);
         product4.setName("Monitor");
-        product4.setUnitPrice(300.0);
+        product4.setUnitPrice(30.0);
         entityManager.persist(product4);
         product5.setName("Keyboard");
         product5.setUnitPrice(50.0);
