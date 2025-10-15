@@ -3,6 +3,7 @@ package org.uptc.sales_tracker.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "FACTURAS")
@@ -22,6 +23,9 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "CLIENTE_ID", nullable = false)
     private Person client;
+
+    @OneToMany(mappedBy = "invoice")
+    private List<Detail> details;
 
     public Invoice() {
     }
@@ -56,6 +60,14 @@ public class Invoice {
 
     public void setClient(Person client) {
         this.client = client;
+    }
+
+    public List<Detail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<Detail> details) {
+        this.details = details;
     }
 
     @Override

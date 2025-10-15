@@ -15,6 +15,22 @@ public class Main {
         loadData();
         getClientInvoices(1L);
         getProviderProducts(1L);
+        getSellerTotalRevenue(1L);
+    }
+
+    public static void getSellerTotalRevenue(Long sellerId) {
+        EntityManager entityManager = PersistenceUtil.getMysqlEntityManager();
+        Person seller = entityManager.find(Person.class, sellerId);
+        List<Invoice> sales = seller.getSales();
+        double totalRevenue = 0.0;
+        for (Invoice invoice : sales) {
+            List<Detail> details = invoice.getDetails();
+            for (Detail detail : details) {
+                totalRevenue += detail.getSalePrice();
+            }
+        }
+        System.out.println("Total revenue for seller " + seller.getName() + " " + seller.getLastName() + ": " + totalRevenue);
+        entityManager.close();
     }
 
     public static void getProviderProducts(Long providerId) {
