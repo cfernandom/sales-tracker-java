@@ -12,6 +12,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        loadData();
+    }
+
+    public static void loadData(){
         EntityManager entityManager = PersistenceUtil.getMysqlEntityManager();
         insertPerson(entityManager);
         insertProduct(entityManager);
@@ -20,6 +24,7 @@ public class Main {
         createDetail(entityManager);
         entityManager.close();
     }
+
 
     public static void createDetail(EntityManager entityManager) {
         entityManager.getTransaction().begin();
